@@ -1,0 +1,5 @@
+*.exe binary
+*.cpp text eol=lf
+*.gitattributes text eol=lf
+*.md text eol=lf
+*.c

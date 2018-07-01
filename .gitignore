@@ -1,0 +1,8 @@
+.ycm_extra_conf.py
+.editorconfig
+
+*.exe
+*.exe.stackdump
+*.obj
+*.zip
+
