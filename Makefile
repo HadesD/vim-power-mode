@@ -1,17 +1,12 @@
-.PHONY: all
-
-all: particle.exe
-
-default: particle.exe
-
-particle.exe: particle.cpp
-	g++ -Wall \
-		-o particle.exe -mwindows \
-		particle.cpp \
-		-lgdi32
+all:
+	mkdir -p bin
+	cd bin && \
+		cmake .. && \
+		make -j $(shell nproc)
+	./bin/Particle
 
 clean:
-	rm particle.exe
+	git clean -xdf build bin
 
 x11.test:
 	g++ -Wall -o tests/x11.exe \
