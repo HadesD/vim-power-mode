@@ -5,7 +5,10 @@ all: particle.exe
 default: particle.exe
 
 particle.exe: particle.cpp
-	g++ -Wall -Werror -o particle.exe -mwindows particle.cpp -lgdi32
+	g++ -Wall \
+		-o particle.exe -mwindows \
+		particle.cpp \
+		-lgdi32
 
 clean:
 	rm particle.exe
