@@ -4,22 +4,19 @@
 
 int main(int argc, char *argv[])
 {
-  Display *display = nullptr;
-  Window window;
-  XSetWindowAttributes attribs;
-
-  display = XOpenDisplay(nullptr);
+  Display *display = XOpenDisplay(nullptr);
   if (!display)
   {
-    std::cerr << "Can not create window" << std::endl;
     return 1;
   }
+
+  XSetWindowAttributes attribs;
 
   attribs.override_redirect = 1;
   attribs.background_pixel = 0x80808080;
   // attribs.win_gravity = CenterGravity;
 
-  window = XCreateWindow(
+  Window window = XCreateWindow(
     display,
     RootWindow(display, 0),
     0, 0,
@@ -38,8 +35,8 @@ int main(int argc, char *argv[])
   XMapWindow(display, window);
   XFlush(display);
 
-  // std::cin.get();
-  sleep(3);
+  std::cin.get();
+  // sleep(2);
 
   XUnmapWindow(display, window);
   XFlush(display);

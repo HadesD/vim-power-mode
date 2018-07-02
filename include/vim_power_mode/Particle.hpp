@@ -1,18 +1,19 @@
-#ifndef __VIM_POWER_MODE_PARTICLE_HPP__
-#define __VIM_POWER_MODE_PARTICLE_HPP__
+#ifndef VIM_POWER_MODE_PARTICLE_HPP
+#define VIM_POWER_MODE_PARTICLE_HPP
 
 class Particle
 {
   private:
-    int m_r;
-    int m_g;
-    int m_b;
+    unsigned int m_r;
+    unsigned int m_g;
+    unsigned int m_b;
 
   public:
     Particle();
 
-  private:
+  public:
     void setPosition(int x, int y);
+    unsigned long getHexColor() const;
 };
 
 #endif

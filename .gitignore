@@ -1,6 +1,7 @@
 .editorconfig
-/bin
+compile_commands.json
 
+/bin
 *.exe
 *.exe.stackdump
 *.obj
