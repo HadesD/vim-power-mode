@@ -1,6 +1,5 @@
 all:
-	mkdir -p bin
-	cd bin && \
+	cd build && \
 		cmake .. && \
 		make -j $(shell nproc)
 	./bin/Particle

@@ -4,7 +4,7 @@ end
 
 let g:loaded_power_mode = 1
 
-let s:exe = fnamemodify(expand('<sfile>:h:h') . '/particle.exe', ':p')
+let s:exe = fnamemodify(expand('<sfile>:h:h') . '/bin/Particle.exe', ':p')
 if !filereadable(s:exe)
   finish
 end
@@ -14,7 +14,7 @@ function! s:rand() abort
 endfunction
 
 function! s:wait(mil)
-  let timetowait = a:mil . " m"
+  let timetowait = a:mil . ' m'
   exe 'sleep '.timetowait
 endfunction
 
@@ -30,7 +30,7 @@ function! s:particle()
   if x == 10000 || y == 10000
     let [x, y] = [s:oldx, s:oldy]
   endif
-  let cmd = printf("%s %d,%d,%d,%d,%d", s:exe, v:windowid, x, y, &columns, &lines)
+  let cmd = printf('%s %d,%d,%d,%d,%d', s:exe, v:windowid, x, y, &columns, &lines)
   if (executable('wine'))
     let cmd = 'wine ' . cmd
   end
