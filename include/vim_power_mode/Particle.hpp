@@ -4,15 +4,15 @@
 class Particle
 {
   private:
-    unsigned int m_r;
-    unsigned int m_g;
-    unsigned int m_b;
+    unsigned int m_r : 8;
+    unsigned int m_g : 8;
+    unsigned int m_b : 8;
 
   public:
     Particle();
 
   public:
-    void setPosition(int x, int y);
+    void setPosition(const unsigned int x, const unsigned int y);
     unsigned long getHexColor() const;
 };
 
