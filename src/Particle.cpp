@@ -6,7 +6,12 @@ namespace VPM
 {
   Particle::Particle()
   {
+    m_r = 255;
+    m_g = 0;
+    m_b = 0;
+
     m_window = new Window(10, 10, 0, 0);
+    m_window->setBackgroundColor(this->getHexColor());
   }
 
   Particle::~Particle()

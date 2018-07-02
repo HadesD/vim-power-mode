@@ -14,6 +14,7 @@ namespace VPM
 
     public:
       void move(const unsigned int x, const unsigned int y);
+      void setBackgroundColor(const unsigned long rgb);
   };
 }
 

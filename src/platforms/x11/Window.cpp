@@ -16,9 +16,8 @@ namespace VPM
   {
     display = XOpenDisplay(nullptr);
 
-    XSetWindowAttributes attribs;
-    attribs.override_redirect = 1;
-    attribs.background_pixel = 0x80808080;
+    XSetWindowAttributes attrs;
+    attrs.override_redirect = 1;
 
     window = XCreateWindow(
       display,
@@ -27,22 +26,17 @@ namespace VPM
       width, height,
       0,
       CopyFromParent, CopyFromParent, CopyFromParent, CWOverrideRedirect,
-      &attribs
+      &attrs
       );
 
-    // TODO: fix this
-
-    XSetWindowBackground(display, window, 0x000000);
-
-    XClearWindow(display, window);
-
     XMapWindow(display, window);
-    XFlush(display);
   }
 
   Window::~Window()
   {
+    // TODO: remove this
     std::cin.get();
+
     XUnmapWindow(display, window);
     XFlush(display);
     XCloseDisplay(display);
@@ -50,6 +44,14 @@ namespace VPM
 
   void Window::move(const unsigned int x, const unsigned int y)
   {
-    XMoveWindow(display, window, 20, 20);
+    XMoveWindow(display, window, x, y);
+  }
+
+  void Window::setBackgroundColor(const unsigned long rgb)
+  {
+    XSetWindowBackground(display, window, rgb);
+    XClearWindow(display, window);
+    XFlush(display);
   }
 }
+
