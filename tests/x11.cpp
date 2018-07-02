@@ -1,5 +1,6 @@
 #include <X11/Xlib.h>
 #include <iostream>
+#include <unistd.h>
 
 int main(int argc, char *argv[])
 {
@@ -30,14 +31,19 @@ int main(int argc, char *argv[])
 
   XSetWindowBackground(display, window, 0x000000);
 
-  XMoveWindow(display, window, 20, 30);
+  XMoveWindow(display, window, 20, 20);
 
   XClearWindow(display, window);
 
   XMapWindow(display, window);
   XFlush(display);
 
-  std::cin.get();
+  // std::cin.get();
+  sleep(3);
+
+  XUnmapWindow(display, window);
+  XFlush(display);
+  XCloseDisplay(display);
 
   return 0;
 }
