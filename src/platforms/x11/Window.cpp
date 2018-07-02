@@ -1,14 +1,18 @@
-#include "vim_power_mode/Window.hpp"
+#include "vpm/Window.hpp"
 
 #include <X11/Xlib.h>
 #include <unistd.h>
+#include <iostream>
 
 Display *display;
 Window window;
 
 namespace VPM
 {
-  Window::Window()
+  Window::Window(
+    const unsigned int width, const unsigned int height,
+    const unsigned int x, const unsigned int y
+    )
   {
     display = XOpenDisplay(nullptr);
 
@@ -19,8 +23,8 @@ namespace VPM
     window = XCreateWindow(
       display,
       RootWindow(display, 0),
-      0, 0,
-      10, 10,
+      x, y,
+      width, height,
       0,
       CopyFromParent, CopyFromParent, CopyFromParent, CWOverrideRedirect,
       &attribs
@@ -30,8 +34,6 @@ namespace VPM
 
     XSetWindowBackground(display, window, 0x000000);
 
-    XMoveWindow(display, window, 20, 20);
-
     XClearWindow(display, window);
 
     XMapWindow(display, window);
@@ -40,8 +42,14 @@ namespace VPM
 
   Window::~Window()
   {
+    std::cin.get();
     XUnmapWindow(display, window);
     XFlush(display);
     XCloseDisplay(display);
+  }
+
+  void Window::move(const unsigned int x, const unsigned int y)
+  {
+    XMoveWindow(display, window, 20, 20);
   }
 }

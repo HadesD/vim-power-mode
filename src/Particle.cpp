@@ -1,14 +1,22 @@
-#include "vim_power_mode/Particle.hpp"
+#include "vpm/Particle.hpp"
+
+#include "vpm/Window.hpp"
 
 namespace VPM
 {
   Particle::Particle()
   {
+    m_window = new Window(10, 10, 0, 0);
+  }
+
+  Particle::~Particle()
+  {
+    delete m_window;
   }
 
   void Particle::setPosition(const unsigned int x, const unsigned int y)
   {
-    // TODO: Move window
+    m_window->move(x, y);
   }
 
   unsigned long Particle::getHexColor() const

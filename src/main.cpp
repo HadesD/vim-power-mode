@@ -1,9 +1,11 @@
 #include <iostream>
 
-#include "vim_power_mode/Particle.hpp"
+#include "vpm/Particle.hpp"
 
 int main(int argc, char* argv[])
 {
+  VPM::Particle particle;
+
   return 0;
 }
 

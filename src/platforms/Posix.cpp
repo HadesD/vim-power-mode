@@ -1,4 +1,4 @@
-#include "vim_power_mode/Particle.hpp"
+#include "vpm/Particle.hpp"
 
 // Particle::
 

@@ -3,6 +3,8 @@
 
 namespace VPM
 {
+  class Window;
+
   class Particle
   {
     private:
@@ -10,8 +12,11 @@ namespace VPM
       unsigned int m_g : 8;
       unsigned int m_b : 8;
 
+      Window* m_window;
+
     public:
       Particle();
+      ~Particle();
 
     public:
       void setPosition(const unsigned int x, const unsigned int y);
