@@ -135,7 +135,7 @@ namespace VPM
         return;
       }
       SetLayeredWindowAttributes(
-        window.hwnd, RGB(0xFF, 0xFF, 0xFF), 100, LWA_ALPHA
+        window.hwnd, RGB(0xFF, 0xFF, 0xFF), 70, LWA_ALPHA
         );
 
       HRGN hrgn = CreateEllipticRgn(0, 0, 10, 10);
@@ -144,7 +144,7 @@ namespace VPM
         SetWindowRgn(window.hwnd, hrgn, 0);
       }
 
-      ShowWindow(window.hwnd, 0);
+      ShowWindow(window.hwnd, 1);
       UpdateWindow(window.hwnd);
     }
 
