@@ -42,6 +42,7 @@ namespace VPM
       case WM_DESTROY:
         {
           PostQuitMessage(0);
+          Window::m_isClosed = true;
         }
         break;
       default:
@@ -161,16 +162,10 @@ namespace VPM
   MSG msg;
   void Window::updatePos()
   {
-    std::cout << "Destroy: " << WM_DESTROY << std::endl;
-    std::cout << "Close: " << WM_CLOSE << std::endl;
     if (GetMessage(&msg, nullptr, 0, 0) > 0)
     {
-      if (msg.message == WM_DESTROY)
-      {
-        std::cout << "Closing" << std::endl;
-        m_isClosed = true;
-      }
-      std::cout << "Message: " << msg.message << std::endl;
+      // TODO: Catch VM_DESTROY here
+
       TranslateMessage(&msg);
       DispatchMessage(&msg);
     }

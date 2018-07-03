@@ -7,8 +7,8 @@ namespace VPM
 
   class Window
   {
-    private:
-      unsigned int m_isClosed;
+    public:
+      static bool m_isClosed;
 
     public:
       Window(
