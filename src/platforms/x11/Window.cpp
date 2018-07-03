@@ -25,7 +25,7 @@ namespace VPM
 {
   Window::Window(
     unsigned int width, unsigned int height,
-    unsigned int x, unsigned int y
+    int x, int y
     )
   {
     std::srand(std::time(nullptr));
@@ -61,11 +61,6 @@ namespace VPM
     // TODO: remove this
     std::cin.get();
 
-    for (const auto& window : windows)
-    {
-      XUnmapWindow(display, window.hwnd);
-    }
-
     XFlush(display);
     XCloseDisplay(display);
   }
@@ -77,8 +72,14 @@ namespace VPM
       window.x += window.dx;
       window.y += window.dy;
       window.dy += 2;
-
       XMoveWindow(display, window.hwnd, window.x, window.y);
+      XSetWindowBackground(display, window.hwnd, window.rgb);
+      XClearWindow(display, window.hwnd);
+      if (window.dy >= 30)
+      {
+        m_closedCount++;
+        XUnmapWindow(display, window.hwnd);
+      }
     }
     XFlush(display);
   }
@@ -92,6 +93,11 @@ namespace VPM
       XClearWindow(display, window.hwnd);
     }
     XFlush(display);
+  }
+
+  bool Window::isClosed() const
+  {
+    return m_closedCount == sizeof(windows);
   }
 }
 

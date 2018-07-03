@@ -2,6 +2,9 @@
 
 #include "vpm/Window.hpp"
 
+#include <iostream>
+#include <thread>
+
 namespace VPM
 {
   Particle::Particle()
@@ -10,11 +13,16 @@ namespace VPM
     m_g = 0xFF;
     m_b = 0xFF;
 
-    m_window = new Window(10, 10, 0, 0);
+    m_window = new Window(10, 10, 100, 100);
     m_window->setBackgroundColor(this->getHexColor());
 
     // TODO: Loop this
-    m_window->updatePos();
+    while (!m_window->isClosed())
+    {
+      m_window->updatePos();
+      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+      std::cout << "Updated" << std::endl;
+    }
   }
 
   Particle::~Particle()
