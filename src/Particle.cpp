@@ -12,6 +12,7 @@ namespace VPM
 
     m_window = new Window(10, 10, 0, 0);
     m_window->setBackgroundColor(this->getHexColor());
+    this->setPosition(1,1);
   }
 
   Particle::~Particle()
@@ -19,9 +20,9 @@ namespace VPM
     delete m_window;
   }
 
-  void Particle::setPosition(const unsigned int x, const unsigned int y)
+  void Particle::setPosition(unsigned int x, unsigned int y)
   {
-    m_window->move(x, y);
+    m_window->move(++x, ++y);
   }
 
   unsigned long Particle::getHexColor() const
@@ -29,3 +30,4 @@ namespace VPM
     return m_r << 16 | m_g << 8 | m_b;
   }
 }
+

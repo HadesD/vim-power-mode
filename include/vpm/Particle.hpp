@@ -19,7 +19,7 @@ namespace VPM
       ~Particle();
 
     public:
-      void setPosition(const unsigned int x, const unsigned int y);
+      void setPosition(unsigned int x, unsigned int y);
       unsigned long getHexColor() const;
   };
 }

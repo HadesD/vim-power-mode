@@ -1,17 +1,19 @@
 #include "vpm/Window.hpp"
 
 #include <X11/Xlib.h>
+
 #include <unistd.h>
 #include <iostream>
+#include <array>
 
 Display *display;
-Window window;
+Window windows[VPM::WINDOW_COUNT];
 
 namespace VPM
 {
   Window::Window(
-    const unsigned int width, const unsigned int height,
-    const unsigned int x, const unsigned int y
+    unsigned int width, unsigned int height,
+    unsigned int x, unsigned int y
     )
   {
     display = XOpenDisplay(nullptr);
@@ -19,17 +21,19 @@ namespace VPM
     XSetWindowAttributes attrs;
     attrs.override_redirect = 1;
 
-    window = XCreateWindow(
-      display,
-      RootWindow(display, 0),
-      x, y,
-      width, height,
-      0,
-      CopyFromParent, CopyFromParent, CopyFromParent, CWOverrideRedirect,
-      &attrs
-      );
-
-    XMapWindow(display, window);
+    for (auto& window : windows)
+    {
+      window = XCreateWindow(
+        display,
+        RootWindow(display, 0),
+        x, y,
+        width, height,
+        0,
+        CopyFromParent, CopyFromParent, CopyFromParent, CWOverrideRedirect,
+        &attrs
+        );
+      XMapWindow(display, window);
+    }
   }
 
   Window::~Window()
@@ -37,20 +41,31 @@ namespace VPM
     // TODO: remove this
     std::cin.get();
 
-    XUnmapWindow(display, window);
+    for (const auto& window : windows)
+    {
+      XUnmapWindow(display, window);
+    }
+
     XFlush(display);
     XCloseDisplay(display);
   }
 
-  void Window::move(const unsigned int x, const unsigned int y)
+  void Window::move(unsigned int x, unsigned int y)
   {
-    XMoveWindow(display, window, x, y);
+    for (const auto& window : windows)
+    {
+      XMoveWindow(display, window, x, y);
+    }
+    XFlush(display);
   }
 
-  void Window::setBackgroundColor(const unsigned long rgb)
+  void Window::setBackgroundColor(unsigned long rgb)
   {
-    XSetWindowBackground(display, window, rgb);
-    XClearWindow(display, window);
+    for (const auto& window : windows)
+    {
+      XSetWindowBackground(display, window, rgb);
+      XClearWindow(display, window);
+    }
     XFlush(display);
   }
 }

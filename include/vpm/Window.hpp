@@ -3,18 +3,20 @@
 
 namespace VPM
 {
+  constexpr unsigned int WINDOW_COUNT = 4;
+
   class Window
   {
     public:
       Window(
-        const unsigned int width, const unsigned int height,
-        const unsigned int x, const unsigned int y
+        unsigned int width, unsigned int height,
+        unsigned int x, unsigned int y
         );
       ~Window();
 
     public:
-      void move(const unsigned int x, const unsigned int y);
-      void setBackgroundColor(const unsigned long rgb);
+      void move(unsigned int x, unsigned int y);
+      void setBackgroundColor(unsigned long rgb);
   };
 }
 
