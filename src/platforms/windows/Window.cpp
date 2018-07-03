@@ -20,15 +20,13 @@ Wnd windows[VPM::WINDOW_COUNT];
 namespace VPM
 {
   HBRUSH hb = nullptr;
-
+  HDC hdc = nullptr;
+  RECT rc = {0};
+  PAINTSTRUCT ps;
   LRESULT CALLBACK WindowProc(
     HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
     )
   {
-    HDC hdc = nullptr;
-    RECT rc = {0};
-    PAINTSTRUCT ps;
-
     switch (uMsg)
     {
       case WM_PAINT:
