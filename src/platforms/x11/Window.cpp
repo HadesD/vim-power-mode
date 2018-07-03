@@ -91,10 +91,5 @@ namespace VPM
     }
     XFlush(display);
   }
-
-  bool Window::getIsClosed() const
-  {
-    return m_isClosed;
-  }
 }
 

@@ -5,9 +5,10 @@ set(SRC_FILES ${SRC_FILES}
   src/Window.cpp
   )
 
-if (WIN32)
+if (WIN32 OR MSYS)
   set(SRC_FILES ${SRC_FILES}
     src/platforms/Windows.cpp
+    src/platforms/windows/Window.cpp
     )
 else()
   set(SRC_FILES ${SRC_FILES}

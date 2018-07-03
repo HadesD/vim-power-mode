@@ -1,4 +1,4 @@
-if (WIN32)
+if (WIN32 OR MSYS)
   set(LIBS_REQUIRED ${LIBS_REQUIRED}
     )
 else()
