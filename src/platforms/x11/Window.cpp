@@ -9,7 +9,7 @@
 
 Display *display;
 
-struct Windows
+struct Wnd
 {
   Window hwnd;
   int x;
@@ -19,7 +19,7 @@ struct Windows
   unsigned long rgb;
 };
 
-Windows windows[VPM::WINDOW_COUNT];
+Wnd windows[VPM::WINDOW_COUNT];
 
 namespace VPM
 {

@@ -8,7 +8,7 @@ if (${CMAKE_EXPORT_COMPILE_COMMANDS} STREQUAL ON)
     execute_process(COMMAND ${CMAKE_COMMAND} -E
       remove ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
       )
-    add_custom_target(compile_commands
+    add_custom_target(gen_compile_commands
       SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
       )
     add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json

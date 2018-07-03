@@ -1,6 +1,7 @@
 all:
 	cd build && \
 		cmake .. && \
+		make -j $(shell nproc) gen_compile_commands ; \
 		make -j $(shell nproc)
 	./bin/Particle.exe
 
