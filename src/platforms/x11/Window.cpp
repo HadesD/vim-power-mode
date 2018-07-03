@@ -1,13 +1,25 @@
 #include "vpm/Window.hpp"
 
 #include <X11/Xlib.h>
-
 #include <unistd.h>
+
 #include <iostream>
+#include <ctime>
 #include <array>
 
 Display *display;
-Window windows[VPM::WINDOW_COUNT];
+
+struct Windows
+{
+  Window hwnd;
+  unsigned int x;
+  unsigned int y;
+  unsigned int dx;
+  unsigned int dy;
+  unsigned long rgb;
+};
+
+Windows windows[VPM::WINDOW_COUNT];
 
 namespace VPM
 {
@@ -16,6 +28,8 @@ namespace VPM
     unsigned int x, unsigned int y
     )
   {
+    std::srand(std::time(nullptr));
+
     display = XOpenDisplay(nullptr);
 
     XSetWindowAttributes attrs;
@@ -23,16 +37,22 @@ namespace VPM
 
     for (auto& window : windows)
     {
-      window = XCreateWindow(
+      // Shuffle
+      window.x = x;
+      window.y = y;
+      window.dx = (std::rand() % 10) - 5;
+      window.dy = -10 - (std::rand() % 10);
+
+      window.hwnd = XCreateWindow(
         display,
         RootWindow(display, 0),
-        x, y,
+        window.x, window.y,
         width, height,
         0,
         CopyFromParent, CopyFromParent, CopyFromParent, CWOverrideRedirect,
         &attrs
         );
-      XMapWindow(display, window);
+      XMapWindow(display, window.hwnd);
     }
   }
 
@@ -43,28 +63,33 @@ namespace VPM
 
     for (const auto& window : windows)
     {
-      XUnmapWindow(display, window);
+      XUnmapWindow(display, window.hwnd);
     }
 
     XFlush(display);
     XCloseDisplay(display);
   }
 
-  void Window::move(unsigned int x, unsigned int y)
+  void Window::updatePos()
   {
-    for (const auto& window : windows)
+    for (auto& window : windows)
     {
-      XMoveWindow(display, window, x, y);
+      window.x += window.dx;
+      window.y += window.dy;
+      window.dy += 2;
+
+      XMoveWindow(display, window.hwnd, window.x, window.y);
     }
     XFlush(display);
   }
 
   void Window::setBackgroundColor(unsigned long rgb)
   {
-    for (const auto& window : windows)
+    for (auto& window : windows)
     {
-      XSetWindowBackground(display, window, rgb);
-      XClearWindow(display, window);
+      window.rgb = rgb;
+      XSetWindowBackground(display, window.hwnd, window.rgb);
+      XClearWindow(display, window.hwnd);
     }
     XFlush(display);
   }

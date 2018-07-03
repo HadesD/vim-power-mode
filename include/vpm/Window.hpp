@@ -3,7 +3,7 @@
 
 namespace VPM
 {
-  constexpr unsigned int WINDOW_COUNT = 4;
+  constexpr unsigned int WINDOW_COUNT = 15;
 
   class Window
   {
@@ -15,7 +15,7 @@ namespace VPM
       ~Window();
 
     public:
-      void move(unsigned int x, unsigned int y);
+      void updatePos();
       void setBackgroundColor(unsigned long rgb);
   };
 }
