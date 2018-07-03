@@ -32,16 +32,18 @@ namespace VPM
     switch (uMsg)
     {
       case WM_PAINT:
-        hdc = BeginPaint(hwnd, &ps);
-        GetClientRect(hwnd, &rc);
-        FillRect(hdc, &rc, hb);
-        EndPaint(hwnd, &ps);
-        return 0;
+        {
+          hdc = BeginPaint(hwnd, &ps);
+          GetClientRect(hwnd, &rc);
+          FillRect(hdc, &rc, hb);
+          EndPaint(hwnd, &ps);
+        }
+        break;
       case WM_DESTROY:
         {
           PostQuitMessage(0);
         }
-        return 0;
+        break;
       default:
         break;
     }
@@ -132,7 +134,7 @@ namespace VPM
         return;
       }
       SetLayeredWindowAttributes(
-        window.hwnd, RGB(0xFF, 0xFF, 0xFF), 70, LWA_ALPHA
+        window.hwnd, RGB(0xFF, 0xFF, 0xFF), 100, LWA_ALPHA
         );
 
       HRGN hrgn = CreateEllipticRgn(0, 0, 10, 10);
@@ -163,13 +165,13 @@ namespace VPM
     std::cout << "Close: " << WM_CLOSE << std::endl;
     if (GetMessage(&msg, nullptr, 0, 0) > 0)
     {
-      TranslateMessage(&msg);
       if (msg.message == WM_DESTROY)
       {
         std::cout << "Closing" << std::endl;
         m_isClosed = true;
       }
       std::cout << "Message: " << msg.message << std::endl;
+      TranslateMessage(&msg);
       DispatchMessage(&msg);
     }
   }
