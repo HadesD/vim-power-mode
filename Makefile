@@ -2,7 +2,7 @@ all:
 	cd build && \
 		cmake .. && \
 		make -j $(shell nproc)
-	./bin/Particle
+	./bin/Particle.exe
 
 clean:
 	git clean -xdf build bin

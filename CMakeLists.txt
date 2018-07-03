@@ -28,6 +28,7 @@ include_directories(${PROJECT_NAME} PRIVATE ${INC_DIRS})
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})
 target_link_libraries(${PROJECT_NAME} ${LIBS_REQUIRED})
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${PROJECT_NAME}.exe")
 
 # PostBuild {
 include(PostBuild)

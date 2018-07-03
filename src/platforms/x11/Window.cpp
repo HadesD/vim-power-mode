@@ -38,9 +38,10 @@ namespace VPM
 
     for (auto& window : windows)
     {
-      // Shuffle
       window.x = x;
       window.y = y;
+
+      // Shuffle
       window.dx = (std::rand() % 10) - 5;
       window.dy = -5 - (std::rand() % 10);
 
@@ -59,7 +60,6 @@ namespace VPM
 
   Window::~Window()
   {
-    // TODO: remove this
     XFlush(display);
     XCloseDisplay(display);
   }
