@@ -56,7 +56,7 @@ namespace VPM
     {
       window.x += window.dx;
       window.y += window.dy;
-      window.dy += 2;
+      window.dy += 1;
 
       if (window.dy >= 20)
       {
@@ -64,7 +64,7 @@ namespace VPM
         break;
       }
       SetWindowPos(
-        window.hwnd, NULL, window.x, window.y, 0, 0,
+        window.hwnd, nullptr, window.x, window.y, 0, 0,
         SWP_NOSIZE|SWP_NOZORDER|SWP_NOOWNERZORDER
         );
     }
@@ -89,7 +89,7 @@ namespace VPM
     wc.lpfnWndProc = WindowProc;
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;
-    wc.hInstance = nullptr;
+    wc.hInstance = ::GetModuleHandle(nullptr);
     wc.hIcon = static_cast<HICON>(LoadImage(
         nullptr, IDI_APPLICATION, IMAGE_ICON, 0, 0, LR_SHARED
         ));
@@ -110,6 +110,7 @@ namespace VPM
       return;
     }
 
+    hb = CreateSolidBrush(RGB(0xFF, 0xFF, 0xFF));
     for (auto& window : windows)
     {
       window.x = x;
@@ -137,9 +138,10 @@ namespace VPM
       HRGN hrgn = CreateEllipticRgn(0, 0, 10, 10);
       if (hrgn)
       {
-        SetWindowRgn(window.hwnd, hrgn, true);
+        SetWindowRgn(window.hwnd, hrgn, 0);
       }
-      ShowWindow(window.hwnd, false);
+
+      ShowWindow(window.hwnd, 0);
       UpdateWindow(window.hwnd);
     }
 
@@ -157,24 +159,24 @@ namespace VPM
   MSG msg;
   void Window::updatePos()
   {
-    std::cout << msg.message << std::endl;
     std::cout << "Destroy: " << WM_DESTROY << std::endl;
     std::cout << "Close: " << WM_CLOSE << std::endl;
     if (GetMessage(&msg, nullptr, 0, 0) > 0)
     {
+      TranslateMessage(&msg);
       if (msg.message == WM_DESTROY)
       {
         std::cout << "Closing" << std::endl;
         m_isClosed = true;
       }
-      TranslateMessage(&msg);
+      std::cout << "Message: " << msg.message << std::endl;
       DispatchMessage(&msg);
     }
   }
 
   void Window::setBackgroundColor(unsigned long rgb)
   {
-    hb = CreateSolidBrush(rgb);
+    hb = CreateSolidBrush(RGB(0xFF, 0xFF, 0xFF));
   }
 }
 
