@@ -28,7 +28,7 @@ function! s:particle()
   if exists(':AsyncRun')
     silent exe 'AsyncRun! ' l:cmd
   else
-    silent exe "!start " l:cmd
+    silent exe '!start ' l:cmd
   end
 endfunction
 

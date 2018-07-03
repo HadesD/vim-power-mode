@@ -19,7 +19,7 @@ namespace VPM
     while (!m_window->getIsClosed())
     {
       m_window->updatePos();
-      std::this_thread::sleep_for(std::chrono::milliseconds(2));
+      std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
   }
 
