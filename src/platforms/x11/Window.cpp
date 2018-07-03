@@ -12,10 +12,10 @@ Display *display;
 struct Windows
 {
   Window hwnd;
-  unsigned int x;
-  unsigned int y;
-  unsigned int dx;
-  unsigned int dy;
+  int x;
+  int y;
+  int dx;
+  int dy;
   unsigned long rgb;
 };
 
@@ -29,6 +29,7 @@ namespace VPM
     )
   {
     std::srand(std::time(nullptr));
+    m_isClosed = false;
 
     display = XOpenDisplay(nullptr);
 
@@ -41,7 +42,7 @@ namespace VPM
       window.x = x;
       window.y = y;
       window.dx = (std::rand() % 10) - 5;
-      window.dy = -10 - (std::rand() % 10);
+      window.dy = -5 - (std::rand() % 10);
 
       window.hwnd = XCreateWindow(
         display,
@@ -59,8 +60,6 @@ namespace VPM
   Window::~Window()
   {
     // TODO: remove this
-    std::cin.get();
-
     XFlush(display);
     XCloseDisplay(display);
   }
@@ -71,14 +70,12 @@ namespace VPM
     {
       window.x += window.dx;
       window.y += window.dy;
-      window.dy += 2;
+      window.dy += 1;
       XMoveWindow(display, window.hwnd, window.x, window.y);
-      XSetWindowBackground(display, window.hwnd, window.rgb);
-      XClearWindow(display, window.hwnd);
-      if (window.dy >= 30)
+      if (window.dy >= 20)
       {
-        m_closedCount++;
-        XUnmapWindow(display, window.hwnd);
+        m_isClosed = true;
+        break;
       }
     }
     XFlush(display);
@@ -95,9 +92,9 @@ namespace VPM
     XFlush(display);
   }
 
-  bool Window::isClosed() const
+  bool Window::getIsClosed() const
   {
-    return m_closedCount == sizeof(windows);
+    return m_isClosed;
   }
 }
 

@@ -17,11 +17,10 @@ namespace VPM
     m_window->setBackgroundColor(this->getHexColor());
 
     // TODO: Loop this
-    while (!m_window->isClosed())
+    while (!m_window->getIsClosed())
     {
       m_window->updatePos();
-      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-      std::cout << "Updated" << std::endl;
+      std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
   }
 

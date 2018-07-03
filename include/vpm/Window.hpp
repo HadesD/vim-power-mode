@@ -3,12 +3,12 @@
 
 namespace VPM
 {
-  constexpr unsigned int WINDOW_COUNT = 20;
+  constexpr unsigned int WINDOW_COUNT = 4;
 
   class Window
   {
     private:
-      unsigned int m_closedCount;
+      unsigned int m_isClosed;
 
     public:
       Window(
@@ -20,7 +20,7 @@ namespace VPM
     public:
       void updatePos();
       void setBackgroundColor(unsigned long rgb);
-      bool isClosed() const;
+      bool getIsClosed() const;
   };
 }
 
