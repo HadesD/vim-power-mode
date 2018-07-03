@@ -18,13 +18,27 @@ function! s:set_oldpos()
 endfunction
 
 au VimEnter * call s:set_oldpos()
-
+let s:ctb = [
+      \ '000000', 'aa0000', '00aa00', '0000aa', 'aa5500', 'aa00aa', '00aaaa', 'aaaaaa',
+      \ '555555', 'ff5555', '55ff55', 'ffff55', '5555ff', 'ff55ff', '55ffff', 'ffffff'
+      \ ]
 function! s:particle()
   let [x, y] = [screencol(), screenrow()]
   if x == 10000 || y == 10000
     let [x, y] = [s:oldx, s:oldy]
   endif
-  let l:cmd = printf('%s %d,%d,%d,%d,%d', s:exe, v:windowid, x, y, &columns, &lines)
+
+  " Color
+  let c = synIDattr(synIDtrans(synID(line("."), col(".")-1, 1)), "fg")
+  if c =~ '^#'
+    let c = c[1:]
+  elseif c =~ '^[0-9]\+$'
+    let c = s:ctb[c]
+  else
+    let c = 'ffffff'
+  endif
+
+  let l:cmd = printf('%s %d,%d,%d,%d,%d %s', s:exe, v:windowid, x, y, &columns, &lines, c)
   if exists(':AsyncRun')
     silent exe 'AsyncRun! ' l:cmd
   else

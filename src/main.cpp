@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[])
 {
-  if (argc > 1)
+  if (argc >= 2)
   {
     std::sscanf(
       argv[1], "%d,%d,%d,%d,%d",
@@ -16,7 +16,17 @@ int main(int argc, char* argv[])
       &VPM::Config::columns,
       &VPM::Config::lines
       );
+    if (argc >= 3)
+    {
+      std::sscanf(
+        argv[2], "%02x%02x%02x",
+        &VPM::Config::r,
+        &VPM::Config::g,
+        &VPM::Config::b
+        );
+    }
   }
+
   VPM::Particle particle;
 
   return 0;

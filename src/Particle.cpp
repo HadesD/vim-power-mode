@@ -1,6 +1,7 @@
 #include "vpm/Particle.hpp"
 
 #include "vpm/Window.hpp"
+#include "vpm/Config.hpp"
 
 #include <iostream>
 #include <thread>
@@ -9,9 +10,9 @@ namespace VPM
 {
   Particle::Particle()
   {
-    m_r = 0xFF;
-    m_g = 0xFF;
-    m_b = 0xFF;
+    m_r = Config::r;
+    m_g = Config::g;
+    m_b = Config::b;
 
     m_window = new Window(10, 10, 100, 100);
     m_window->setBackgroundColor(this->getHexColor());

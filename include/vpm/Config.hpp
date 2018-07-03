@@ -1,12 +1,15 @@
-#ifndef VPM_PARTICLE_HPP
-#define VPM_PARTICLE_HPP
+#ifndef VIM_POWER_MODE_CONFIG_HPP
+#define VIM_POWER_MODE_CONFIG_HPP
 
 namespace VPM { namespace Config {
-  int vimwnd;
-  int x;
-  int y;
-  int columns;
-  int lines;
+  extern int vimwnd;
+  extern int x;
+  extern int y;
+  extern int columns;
+  extern int lines;
+  extern unsigned int r;
+  extern unsigned int g;
+  extern unsigned int b;
 } }
 
 #endif

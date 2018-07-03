@@ -1,6 +1,7 @@
 set(SRC_FILES ${SRC_FILES}
   src/main.cpp
 
+  src/Config.cpp
   src/Particle.cpp
   src/Window.cpp
   )
