@@ -1,7 +1,6 @@
 if exists('g:loaded_power_mode')
   finish
 end
-
 let g:loaded_power_mode = 1
 
 let s:exe = fnamemodify(expand('<sfile>:h:h') . '/bin/Particle.exe', ':p')
@@ -52,9 +51,7 @@ function! s:install(flag)
   augroup END
 endfunction
 
-if exists('g:vim_power_mode_auto_on')
-  call <SID>install(1)
-end
+call <SID>install(exists('g:vim_power_mode_auto_on'))
 
 command! -nargs=0 PowerModeOn call <SID>install(1)
 command! -nargs=0 PowerModeOff call <SID>install(0)
