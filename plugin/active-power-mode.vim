@@ -18,7 +18,7 @@ function! s:set_oldpos()
 endfunction
 
 au VimEnter * call s:set_oldpos()
-
+let s:hwndId = v:windowid ? v:windowid : getpid()
 function! s:particle()
   let [x, y] = [screencol(), screenrow()]
   if x == 10000 || y == 10000
@@ -35,12 +35,13 @@ function! s:particle()
     let c = 'ffffff'
   endif
 
-  let l:cmd = printf('%s %d,%d,%d,%d,%d %s', s:exe, v:windowid, x, y, &columns, &lines, c)
+  let l:cmd = printf('%s %d,%d,%d,%d,%d %s', s:exe, s:hwndId, x, y, &columns, &lines, c)
   if exists(':AsyncRun')
     silent exe 'AsyncRun! ' l:cmd
   else
     silent exe 'start! ' l:cmd
   end
+  echo l:cmd
 endfunction
 
 function! s:power_mode()
