@@ -26,7 +26,7 @@ function! s:particle()
   endif
 
   " Color
-  let c = synIDattr(synIDtrans(synID(line("."), col(".")-1, 1)), 'fg')
+  let c = synIDattr(synIDtrans(synID(line("."), col(".")-1, 1)), 'fg#')
   if c =~ '^#'
     let c = c[1:]
   elseif c =~ '^[0-9]\+$'

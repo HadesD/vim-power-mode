@@ -7,6 +7,9 @@ namespace VPM { namespace Config {
   extern int y;
   extern int columns;
   extern int lines;
+  extern const unsigned int width;
+  extern const unsigned int height;
+
   extern unsigned int r;
   extern unsigned int g;
   extern unsigned int b;

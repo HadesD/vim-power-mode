@@ -11,15 +11,11 @@ namespace VPM
       static bool m_isClosed;
 
     public:
-      Window(
-        unsigned int width, unsigned int height,
-        int x, int y
-        );
+      Window();
       ~Window();
 
     public:
       void updatePos();
-      void setBackgroundColor(unsigned long rgb);
       bool getIsClosed() const;
   };
 }

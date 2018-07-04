@@ -4,7 +4,6 @@
 #include <unistd.h>
 
 #include <iostream>
-#include <ctime>
 #include <array>
 
 Display *display;
@@ -28,9 +27,6 @@ namespace VPM
     int x, int y
     )
   {
-    std::srand(std::time(nullptr));
-    m_isClosed = false;
-
     display = XOpenDisplay(nullptr);
 
     XSetWindowAttributes attrs;
@@ -54,6 +50,11 @@ namespace VPM
         CopyFromParent, CopyFromParent, CopyFromParent, CWOverrideRedirect,
         &attrs
         );
+      XSetWindowBackground(
+        display, window.hwnd,
+        Config::r << 16 | Config::g << 8 | Config::b
+        );
+      XClearWindow(display, window.hwnd);
       XMapWindow(display, window.hwnd);
     }
   }
@@ -77,17 +78,6 @@ namespace VPM
         m_isClosed = true;
         break;
       }
-    }
-    XFlush(display);
-  }
-
-  void Window::setBackgroundColor(unsigned long rgb)
-  {
-    for (auto& window : windows)
-    {
-      window.rgb = rgb;
-      XSetWindowBackground(display, window.hwnd, window.rgb);
-      XClearWindow(display, window.hwnd);
     }
     XFlush(display);
   }

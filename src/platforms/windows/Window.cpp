@@ -1,7 +1,8 @@
 #include "vpm/Window.hpp"
 
-#include <Windows.h>
+#include "vpm/Config.hpp"
 
+#include <Windows.h>
 #include <iostream>
 #include <string>
 #include <ctime>
@@ -71,15 +72,8 @@ namespace VPM
     }
   }
 
-  Window::Window(
-    unsigned int width, unsigned int height,
-    int x, int y
-    )
+  Window::Window()
   {
-    m_isClosed = false;
-
-    std::srand(time(nullptr));
-
     POINT pt = {200, 200};
     char app[] = "Particle";
 
@@ -111,11 +105,11 @@ namespace VPM
       return;
     }
 
-    hb = CreateSolidBrush(RGB(0xFF, 0xFF, 0xFF));
+    hb = CreateSolidBrush(RGB(Config::r, Config::g, Config::b));
     for (auto& window : windows)
     {
-      window.x = x;
-      window.y = y;
+      window.x = Config::x;
+      window.y = Config::y;
 
       // Shuffle
       window.dx = (std::rand() % 10) - 5;
@@ -124,7 +118,7 @@ namespace VPM
       window.hwnd = CreateWindowEx(
         WS_EX_TOPMOST | WS_EX_TOOLWINDOW | WS_EX_LAYERED | WS_EX_NOACTIVATE,
         app, app, WS_POPUP,
-        window.x, window.y, width, height,
+        window.x, window.y, Config::width, Config::height,
         nullptr, nullptr, nullptr, nullptr
         );
       if (!window.hwnd)
@@ -167,11 +161,6 @@ namespace VPM
       TranslateMessage(&msg);
       DispatchMessage(&msg);
     }
-  }
-
-  void Window::setBackgroundColor(unsigned long rgb)
-  {
-    hb = CreateSolidBrush(RGB(0xFF, 0xFF, 0xFF));
   }
 }
 

@@ -1,21 +1,18 @@
 #include "vpm/Particle.hpp"
 
 #include "vpm/Window.hpp"
-#include "vpm/Config.hpp"
 
 #include <iostream>
 #include <thread>
+#include <ctime>
 
 namespace VPM
 {
   Particle::Particle()
   {
-    m_r = Config::r;
-    m_g = Config::g;
-    m_b = Config::b;
+    std::srand(std::time(nullptr));
 
-    m_window = new Window(10, 10, 100, 100);
-    m_window->setBackgroundColor(this->getHexColor());
+    m_window = new Window();
 
     while (!m_window->getIsClosed())
     {
@@ -27,11 +24,6 @@ namespace VPM
   Particle::~Particle()
   {
     delete m_window;
-  }
-
-  unsigned long Particle::getHexColor() const
-  {
-    return m_r << 16 | m_g << 8 | m_b;
   }
 }
 
