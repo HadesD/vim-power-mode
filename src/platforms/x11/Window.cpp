@@ -1,5 +1,7 @@
 #include "vpm/Window.hpp"
 
+#include "vpm/Config.hpp"
+
 #include <X11/Xlib.h>
 #include <unistd.h>
 
@@ -22,10 +24,7 @@ Wnd windows[VPM::WINDOW_COUNT];
 
 namespace VPM
 {
-  Window::Window(
-    unsigned int width, unsigned int height,
-    int x, int y
-    )
+  Window::Window()
   {
     display = XOpenDisplay(nullptr);
 
@@ -34,8 +33,8 @@ namespace VPM
 
     for (auto& window : windows)
     {
-      window.x = x;
-      window.y = y;
+      window.x = Config::x;
+      window.y = Config::y;
 
       // Shuffle
       window.dx = (std::rand() % 10) - 5;
@@ -45,7 +44,7 @@ namespace VPM
         display,
         RootWindow(display, 0),
         window.x, window.y,
-        width, height,
+        Config::width, Config::height,
         0,
         CopyFromParent, CopyFromParent, CopyFromParent, CWOverrideRedirect,
         &attrs
