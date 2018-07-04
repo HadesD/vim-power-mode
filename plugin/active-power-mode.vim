@@ -18,12 +18,7 @@ function! s:set_oldpos()
 endfunction
 
 au VimEnter * call s:set_oldpos()
-let s:ctb = [
-      \ '000000', 'aa0000', '00aa00', '0000aa', 'aa5500', 'aa00aa', '00aaaa',
-      \ 'aaaaaa',
-      \ '555555', 'ff5555', '55ff55', 'ffff55', '5555ff', 'ff55ff', '55ffff',
-      \ 'ffffff'
-      \ ]
+
 function! s:particle()
   let [x, y] = [screencol(), screenrow()]
   if x == 10000 || y == 10000
@@ -35,7 +30,7 @@ function! s:particle()
   if c =~ '^#'
     let c = c[1:]
   elseif c =~ '^[0-9]\+$'
-    let c = s:ctb[c]
+    let c = vpm#map_colors()[c]
   else
     let c = 'ffffff'
   endif
@@ -44,7 +39,7 @@ function! s:particle()
   if exists(':AsyncRun')
     silent exe 'AsyncRun! ' l:cmd
   else
-    silent exe '!start ' l:cmd
+    silent exe 'start! ' l:cmd
   end
 endfunction
 
