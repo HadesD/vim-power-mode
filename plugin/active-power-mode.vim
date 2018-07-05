@@ -19,6 +19,12 @@ endfunction
 
 au VimEnter * call s:set_oldpos()
 let s:hwndId = v:windowid ? v:windowid : getpid()
+if has('unix')
+  let s:shell = 'sh'
+else
+  let s:shell = 'cmd'
+endif
+
 function! s:particle()
   let [x, y] = [screencol(), screenrow()]
   if x == 10000 || y == 10000
@@ -36,12 +42,10 @@ function! s:particle()
   endif
 
   let l:cmd = printf('%s %d,%d,%d,%d,%d %s', s:exe, s:hwndId, x, y, &columns, &lines, c)
-  if exists(':AsyncRun')
-    silent exe 'AsyncRun! ' l:cmd
-  else
-    silent exe 'start! ' l:cmd
-  end
-  echo l:cmd
+
+  if exists('s:shell')
+    let jobid = async#job#start([s:shell, '-c', l:cmd], {})
+  endif
 endfunction
 
 function! s:power_mode()
@@ -57,8 +61,8 @@ function! s:install(flag)
   augroup ActivePowerMode
     au!
     if a:flag
-      au TextChangedI * call s:power_mode()
-      au VimResized * call s:set_oldpos()
+      au! TextChangedI * call s:power_mode()
+      au! VimResized * call s:set_oldpos()
     endif
   augroup END
 endfunction
